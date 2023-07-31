@@ -1,0 +1,2 @@
+add_executable(OpenCL_Devices devices.cpp)
+target_link_libraries(OpenCL_Devices PRIVATE opencl)
