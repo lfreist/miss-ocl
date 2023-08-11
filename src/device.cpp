@@ -165,7 +165,8 @@ uint64_t Device::_compute_cores() {
 }
 
 std::ostream& operator<<(std::ostream& os, const Device& device) {
-  os << device.type() << device.name() << " (" << device.get_id() << ", " << device.vendor() << ")";
+  os << device.type() << device.name() << " ("
+     << device.compute_units() << " CU [" << device.cores() << " Cores])";
   return os;
 }
 

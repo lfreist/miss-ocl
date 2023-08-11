@@ -12,6 +12,9 @@
 #pragma once
 
 #include <string>
+#include <chrono>
+
+namespace mcl {
 
 inline constexpr const char* cl_error(int error_code) {
   switch (error_code) {
@@ -151,4 +154,25 @@ inline constexpr const char* cl_error(int error_code) {
     default:
       return "Unknown OpenCL error";
   }
+}
+
+class Timer {
+  typedef std::chrono::high_resolution_clock clock;
+ public:
+  Timer() = default;
+
+  void start() {
+    _start = clock::now();
+  }
+
+  std::chrono::duration<double> stop() {
+    _end = clock::now();
+    return std::chrono::duration_cast<std::chrono::duration<double>>(_end - _start);
+  }
+
+ private:
+   std::chrono::time_point<clock> _start;
+   std::chrono::time_point<clock> _end;
+};
+
 }

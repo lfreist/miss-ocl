@@ -42,7 +42,6 @@ class Environment {
   cl::Context _cl_context{};
   Device* _device;
   cl::CommandQueue _cl_queue{};
-  cl::Program _cl_program{};
 };
 
 }  // namespace mcl

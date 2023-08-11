@@ -37,6 +37,13 @@ class Memory<1, T> {
 
   Memory(Environment* environment, T* data, size_t size) : _environment(environment), _data(data), _range(size) {}
 
+  Memory(Environment* environment, size_t x_size, T default_value = static_cast<T>(0))
+      : _environment(environment), _range(x_size) {
+    _data = new T[size()];
+    std::fill_n(_data, size(), default_value);
+    _allocate_device_buffer();
+  }
+
   ~Memory() {
     if (!_unowned_data) {
       delete[] _data;
@@ -204,6 +211,14 @@ class Memory<3, T> {
   };
   Memory(Environment* environment, T* data, size_t x_size, size_t y_size, size_t z_size)
       : _environment(environment), _data(data), _range(x_size, y_size, z_size) {}
+
+  Memory(Environment* environment, size_t x_size, size_t y_size, size_t z_size, T default_value = static_cast<T>(0))
+      : _environment(environment), _range(x_size, y_size, z_size) {
+    _data = new T[size()];
+    std::fill_n(_data, size(), default_value);
+    _allocate_device_buffer();
+  }
+
   ~Memory() {
     if (!_unowned_data) {
       delete[] _data;
