@@ -22,7 +22,7 @@ class Device;
 
 // ===== Environment ===================================================================================================
 class Environment {
-  template <uint dimension, typename T>
+  template <unsigned dimension, typename T>
   friend class Memory;
   friend class Kernel;
 

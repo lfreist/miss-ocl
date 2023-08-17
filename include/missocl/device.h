@@ -22,7 +22,7 @@ namespace mcl {
  *        It provides instant methods for retrieving common data.
  */
 class Device {
-  template <uint dimension, typename T>
+  template <unsigned dimension, typename T>
   friend class Memory;
   friend class DeviceManager;
   friend std::ostream& operator<<(std::ostream& os, const Device& device);

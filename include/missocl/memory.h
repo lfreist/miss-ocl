@@ -22,7 +22,7 @@
 
 namespace mcl {
 
-template <uint dimensions, typename T>
+template <unsigned dimensions, typename T>
 class Memory {};
 
 template <typename T>
@@ -53,7 +53,7 @@ class Memory<1, T> {
   T* data() { return _data; }
   const T* data() const { return _data; }
   [[nodiscard]] size_t size() const { return _range.x_size; }
-  [[nodiscard]] constexpr uint dimension() const { return 1; };
+  [[nodiscard]] constexpr unsigned dimension() const { return 1; };
   [[nodiscard]] size_t mem_size() const { return size() * sizeof(T); }
   T& operator[](size_t i) { return _data[i]; }
   const T& operator[](size_t i) const { return _data[i]; }
@@ -137,7 +137,7 @@ class Memory<2, T> {
   T* data() { return _data; }
   const T* data() const { return _data; }
   [[nodiscard]] size_t size() const { return _range.x_size * _range.y_size; }
-  [[nodiscard]] constexpr uint dimension() const { return 2; };
+  [[nodiscard]] constexpr unsigned dimension() const { return 2; };
   [[nodiscard]] size_t mem_size() const { return size() * sizeof(T); }
   T& operator[](size_t i) { return _data[i]; }
   const T& operator[](size_t i) const { return _data[i]; }
@@ -228,7 +228,7 @@ class Memory<3, T> {
   T* data() { return _data; }
   const T* data() const { return _data; }
   [[nodiscard]] size_t size() const { return _range.x_size * _range.y_size * _range.z_size; }
-  [[nodiscard]] constexpr uint dimension() const { return 3; };
+  [[nodiscard]] constexpr unsigned dimension() const { return 3; };
   [[nodiscard]] size_t mem_size() const { return size() * sizeof(T); }
   T& operator[](size_t i) { return _data[i]; }
   const T& operator[](size_t i) const { return _data[i]; }
