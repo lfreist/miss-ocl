@@ -17,7 +17,7 @@
 
 namespace mcl {
 class Environment;
-template <uint dimension, typename T>
+template <unsigned dimension, typename T>
 class Memory;
 
 class Kernel {
@@ -61,7 +61,7 @@ class Kernel {
 
   void link_args() {}
 
-  template <uint dimension, typename T>
+  template <unsigned dimension, typename T>
   void link_parameter(const Memory<dimension, T>& memory) {
     _cl_kernel.setArg(_parameter_count++, memory.get_cl_buffer());
   }

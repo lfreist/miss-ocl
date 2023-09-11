@@ -9,6 +9,7 @@
  * You are free to chose the license whichever you prefer.
  */
 
+#include <algorithm>
 #include <missocl/device.h>
 
 namespace mcl {
@@ -119,7 +120,7 @@ uint64_t Device::_compute_cores() {
     if (clock_frequency_MHz() < 1000 && device_name.find("titan") != std::string::npos) {
       return compute_units() * 192;
     }
-    if (std::any_of(nvidia_64.begin(), nvidia_192.end(),
+    if (std::any_of(nvidia_64.begin(), nvidia_64.end(),
                     [&device_name](const std::string& val) { return device_name.find(val) != std::string::npos; })) {
       if (device_name.find("rtx a") != std::string::npos) {
         return compute_units() * 128;
