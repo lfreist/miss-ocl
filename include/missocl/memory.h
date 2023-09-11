@@ -66,7 +66,7 @@ class Memory<1, T> {
       delete[] _data;
     }
     _data = data;
-    _range = size;
+    _range.x_size = size;
     _allocate_device_buffer();
   }
 
