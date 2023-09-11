@@ -35,7 +35,9 @@ class Memory<1, T> {
     size_t z_size{0};
   };
 
-  Memory(Environment* environment, T* data, size_t size) : _environment(environment), _data(data), _range(size) {}
+  Memory(Environment* environment, T* data, size_t size) : _environment(environment), _data(data), _range(size) {
+    _allocate_device_buffer();
+  }
 
   Memory(Environment* environment, size_t x_size, T default_value = static_cast<T>(0))
       : _environment(environment), _range(x_size) {
@@ -59,6 +61,14 @@ class Memory<1, T> {
   const T& operator[](size_t i) const { return _data[i]; }
   T& at(size_t x) { return _data[x]; }
   const T& at(size_t x) const { return _data[x]; }
+  void assign(T* data, size_t size) {
+    if (!_unowned_data) {
+      delete[] _data;
+    }
+    _data = data;
+    _range = size;
+    _allocate_device_buffer();
+  }
 
   [[nodiscard]] const cl::Buffer& get_cl_buffer() const { return _device_buffer; }
 
@@ -143,6 +153,15 @@ class Memory<2, T> {
   const T& operator[](size_t i) const { return _data[i]; }
   T& at(size_t x, size_t y) { return _data[_range.x_size * y + x]; }
   const T& at(size_t x, size_t y) const { return at(x, y); }
+  void assign(T* data, size_t x_size, size_t y_size) {
+    if (!_unowned_data) {
+      delete[] _data;
+    }
+    _data = data;
+    _range.x_size = x_size;
+    _range.y_size = y_size;
+    _allocate_device_buffer();
+  }
 
   [[nodiscard]] const cl::Buffer& get_cl_buffer() const { return _device_buffer; }
 
@@ -234,6 +253,16 @@ class Memory<3, T> {
   const T& operator[](size_t i) const { return _data[i]; }
   T& at(size_t x, size_t y, size_t z) { return _data[_range.x_size * y + _range.y_size * z + x]; }
   const T& at(size_t x, size_t y) const { return at(x, y); }
+  void assign(T* data, size_t x_size, size_t y_size, size_t z_size) {
+    if (!_unowned_data) {
+      delete[] _data;
+    }
+    _data = data;
+    _range.x_size = x_size;
+    _range.y_size = y_size;
+    _range.z_size = z_size;
+    _allocate_device_buffer();
+  }
 
   [[nodiscard]] const cl::Buffer& get_cl_buffer() const { return _device_buffer; }
 
