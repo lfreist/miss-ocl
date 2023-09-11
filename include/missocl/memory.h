@@ -35,7 +35,8 @@ class Memory<1, T> {
     size_t z_size{0};
   };
 
-  Memory(Environment* environment, T* data, size_t size) : _environment(environment), _data(data), _range(size) {
+  Memory(Environment* environment, T* data, size_t size)
+      : _environment(environment), _data(data), _range(size), _unowned_data(true) {
     _allocate_device_buffer();
   }
 
@@ -65,6 +66,7 @@ class Memory<1, T> {
     if (!_unowned_data) {
       delete[] _data;
     }
+    _unowned_data = true;
     _data = data;
     _range.x_size = size;
     _allocate_device_buffer();
@@ -157,6 +159,7 @@ class Memory<2, T> {
     if (!_unowned_data) {
       delete[] _data;
     }
+    _unowned_data = true;
     _data = data;
     _range.x_size = x_size;
     _range.y_size = y_size;
@@ -229,7 +232,7 @@ class Memory<3, T> {
     size_t z_size;
   };
   Memory(Environment* environment, T* data, size_t x_size, size_t y_size, size_t z_size)
-      : _environment(environment), _data(data), _range(x_size, y_size, z_size) {}
+      : _environment(environment), _data(data), _range(x_size, y_size, z_size), _unowned_data(true) {}
 
   Memory(Environment* environment, size_t x_size, size_t y_size, size_t z_size, T default_value = static_cast<T>(0))
       : _environment(environment), _range(x_size, y_size, z_size) {
@@ -257,6 +260,7 @@ class Memory<3, T> {
     if (!_unowned_data) {
       delete[] _data;
     }
+    _unowned_data = true;
     _data = data;
     _range.x_size = x_size;
     _range.y_size = y_size;
