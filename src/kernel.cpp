@@ -10,6 +10,7 @@
  */
 
 #include <missocl/opencl.h>
+#include <missocl/utils.h>
 
 namespace mcl {
 
