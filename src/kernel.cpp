@@ -27,17 +27,9 @@ Kernel::Kernel(mcl::Environment& environment, cl::NDRange range, std::string nam
     build_options.append(" -cl-intel-greater-than-4GB-buffer-required");
   }
   int error = cl_program.build(_environment->_device->get_cl_device(), build_options.c_str());
-#ifdef __MCL_DEBUG__
-  if (error) {
-    std::cerr << "Error building program: " << cl_error(error) << std::endl;
-  }
-#endif
+  check_opencl_error(error);
   _cl_kernel = cl::Kernel(cl_program, _name.c_str(), &error);
-#ifdef __MCL_DEBUG__
-  if (error) {
-    std::cerr << "Error building Kernel: " << cl_error(error) << std::endl;
-  }
-#endif
+  check_opencl_error(error);
 }
 
 void Kernel::set_range(uint64_t x, uint64_t y, uint64_t z) {
@@ -55,9 +47,7 @@ void Kernel::enqueue_run(unsigned int t, const std::vector<cl::Event>* event_wai
   for (unsigned i = 0; i < t; ++i) {
     int error = _environment->_cl_queue.enqueueNDRangeKernel(_cl_kernel, cl::NullRange, _cl_global_range,
                                                              _cl_local_range, event_waitlist, event_returned);
-    if (error) {
-      std::cerr << "Error enqueueNDRangeKernel: " << cl_error(error) << std::endl;
-    }
+    check_opencl_error(error);
   }
 }
 

@@ -10,7 +10,6 @@
  */
 
 #pragma once
-#define __MCL_DEBUG__
 
 #include <missocl/device.h>
 #include <missocl/environment.h>
@@ -22,5 +21,6 @@
 #include <CL/opencl.hpp>
 
 #define WORKGROUP_SIZE 64
+#define CL_HPP_TARGET_OPENCL_VERSION 300
 
 #define KERNEL_CODE(name, ...) std::string name(#__VA_ARGS__)

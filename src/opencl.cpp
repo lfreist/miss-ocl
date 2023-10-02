@@ -11,8 +11,4 @@
 
 #include <missocl/opencl.h>
 
-namespace mcl {
-
-
-
-}  // namespace mcl
+namespace mcl {}  // namespace mcl

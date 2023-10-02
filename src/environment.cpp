@@ -12,6 +12,7 @@
 #include <missocl/device.h>
 #include <missocl/environment.h>
 #include <missocl/kernel.h>
+#include <missocl/utils.h>
 
 #include <fstream>
 
@@ -39,8 +40,11 @@ Kernel Environment::add_kernel(cl::NDRange range, std::string name, const std::f
 const Device* Environment::get_device() const { return _device; }
 
 void Environment::_init() {
-  _cl_context = cl::Context(_device->get_cl_device());
-  _cl_queue = cl::CommandQueue(_cl_context, _device->get_cl_device());
+  cl_int error;
+  _cl_context = cl::Context(_device->get_cl_device(), nullptr, nullptr, nullptr, &error);
+  check_opencl_error(error);
+  _cl_queue = cl::CommandQueue(_cl_context, _device->get_cl_device(), 0, &error);
+  check_opencl_error(error);
 }
 
 }  // namespace mcl

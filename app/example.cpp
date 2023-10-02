@@ -30,7 +30,7 @@ void matrix_multiplication() {
         C[row * B_m + col] = sum;
       });
   mcl::Timer timer;
-  size_t size = 2048;
+  const int size = 2048;
   mcl::Environment env;
   mcl::Memory<2, float> A(&env, size, size, 3);
   mcl::Memory<2, float> B(&env, size, size, 4);
@@ -68,12 +68,11 @@ void vector_addition() {
   mcl::Memory<1, float> A(&env, size, 3);
   mcl::Memory<1, float> B(&env, size, 4);
   mcl::Memory<1, float> C(&env, size);
-  auto i = A.mem_size();
   std::cout << "--- Vector Addition ---\n";
   std::cout << "Vector size: " << size << " (" + std::to_string(A.mem_size() / 1024 / 1024) + " MiB)" << std::endl;
   std::cout << "Device:      " << *env.get_device() << std::endl;
   std::cout << "-----------------------------\n";
-  auto _kernel = env.add_kernel(cl::NDRange(size, size), "vadd", vadd);
+  auto _kernel = env.add_kernel(cl::NDRange(size), "vadd", vadd);
   _kernel.set_parameters(A, B, C);  // pointer arguments
   A.write_to_device();
   B.write_to_device();

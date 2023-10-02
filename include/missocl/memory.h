@@ -102,11 +102,7 @@ class Memory<1, T> {
     } else {
       _device_buffer = cl::Buffer(_environment->_cl_context, CL_MEM_READ_WRITE, mem_size(), nullptr, &error);
     }
-#ifdef __MCL_DEBUG__
-    if (error) {
-      std::cerr << "Error allocating device memory: " << cl_error(error) << std::endl;
-    }
-#endif
+    check_opencl_error(error);
     _device_buffer_init = true;
   }
 
@@ -205,11 +201,7 @@ class Memory<2, T> {
     } else {
       _device_buffer = cl::Buffer(_environment->_cl_context, CL_MEM_READ_WRITE, mem_size(), nullptr, &error);
     }
-#ifdef __MCL_DEBUG__
-    if (error) {
-      std::cerr << "Error allocating device memory: " << cl_error(error) << std::endl;
-    }
-#endif
+    check_opencl_error(error);
     _device_buffer_init = true;
   }
 
@@ -298,11 +290,7 @@ class Memory<3, T> {
     } else {
       _device_buffer = cl::Buffer(_environment->_cl_context, CL_MEM_READ_WRITE, mem_size(), nullptr, &error);
     }
-#ifdef __MCL_DEBUG__
-    if (error) {
-      std::cerr << "Error allocating device memory: " << cl_error(error) << std::endl;
-    }
-#endif
+    check_opencl_error(error);
     _device_buffer_init = true;
   }
 

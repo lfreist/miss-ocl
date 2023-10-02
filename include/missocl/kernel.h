@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include <missocl/utils.h>
+
 #include <CL/opencl.hpp>
 #include <cstdint>
 #include <string>
@@ -26,7 +28,6 @@ class Kernel {
  public:
   void set_range(uint64_t x, uint64_t y = 0, uint64_t z = 0);
   void set_range(cl::NDRange global, cl::NDRange local = cl::NDRange(64));
-
 
   template <typename... T>
   void set_parameters(const T&... parameters) {
@@ -56,19 +57,22 @@ class Kernel {
 
   template <typename T>
   void link_arg(const T& arg) {
-    _cl_kernel.setArg(_parameter_count++, arg);
+    int error = _cl_kernel.setArg(_parameter_count++, arg);
+    check_opencl_error(error);
   }
 
   void link_args() {}
 
   template <unsigned dimension, typename T>
   void link_parameter(const Memory<dimension, T>& memory) {
-    _cl_kernel.setArg(_parameter_count++, memory.get_cl_buffer());
+    int error = _cl_kernel.setArg(_parameter_count++, memory.get_cl_buffer());
+    check_opencl_error(error);
   }
 
   template <typename T>
   void link_parameter(const T& parameter) {
-    _cl_kernel.setArg(_parameter_count++, sizeof(T), static_cast<void*>(parameter));
+    int error = _cl_kernel.setArg(_parameter_count++, sizeof(T), static_cast<void*>(parameter));
+    check_opencl_error(error);
   }
 
   void link_parameters() {}  // catch last recursive call of link_parameters(...)
@@ -84,7 +88,7 @@ class Kernel {
   Environment* _environment;
   cl::NDRange _cl_global_range;
   cl::NDRange _cl_local_range;
-  uint64_t _parameter_count{0};
+  cl_uint _parameter_count{0};
 
   const std::string _device_capabilities{
       "#define def_workgroup_size 64\n"
