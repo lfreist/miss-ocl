@@ -15,11 +15,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 include_directories(include)
+include_directories(external/OpenCL/external/OpenCL-CLHPP/include)
 
 set(OPENCL_SDK_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(external/OpenCL)
-include_directories(external/OpenCL/external/OpenCL-CLHPP/include)
 
 add_subdirectory(src)
 
