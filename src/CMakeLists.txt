@@ -1,7 +1,7 @@
-add_library(device_static STATIC device.cpp)
+add_library(device_static STATIC device.cpp utils.cpp)
 target_link_libraries(device_static PUBLIC OpenCL::OpenCL)
 
-add_library(device SHARED device.cpp)
+add_library(device SHARED device.cpp utils.cpp)
 target_link_libraries(device PUBLIC OpenCL::OpenCL)
 
 file(GLOB SRC "*.cpp")
