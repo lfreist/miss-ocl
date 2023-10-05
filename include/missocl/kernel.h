@@ -13,6 +13,10 @@
 
 #include <missocl/utils.h>
 
+#ifndef CL_HPP_TARGET_OPENCL_VERSION
+#define CL_HPP_TARGET_OPENCL_VERSION 200
+#endif
+#define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 #include <cstdint>
 #include <string>
@@ -26,7 +30,7 @@ class Kernel {
   friend class Environment;
 
  public:
-  void set_range(uint64_t x, uint64_t y = 0, uint64_t z = 0);
+  void set_range(cl::size_type x, cl::size_type y = 0, cl::size_type z = 0);
   void set_range(cl::NDRange global, cl::NDRange local = cl::NDRange(64));
 
   template <typename... T>

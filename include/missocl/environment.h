@@ -11,6 +11,9 @@
 
 #pragma once
 
+#ifndef CL_HPP_TARGET_OPENCL_VERSION
+#define CL_HPP_TARGET_OPENCL_VERSION 200
+#endif
 #include <CL/opencl.hpp>
 #include <cstdint>
 #include <string>

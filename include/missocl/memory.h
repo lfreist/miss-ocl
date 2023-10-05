@@ -81,14 +81,16 @@ class Memory<1, T> {
 
   void write_to_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                        cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
+    cl_int error = _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
                                                event_returned);
+    check_opencl_error(error);
   }
 
   void read_from_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                         cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
+    cl_int error = _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
                                               event_waitlist, event_returned);
+    check_opencl_error(error);
   }
 
  private:
@@ -171,14 +173,16 @@ class Memory<2, T> {
 
   void write_to_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                        cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
+    cl_int error = _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
                                                event_returned);
+    check_opencl_error(error);
   }
 
   void read_from_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                         cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
+    cl_int error = _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
                                               event_waitlist, event_returned);
+    check_opencl_error(error);
   }
 
   [[nodiscard]] std::string str() const {
@@ -269,14 +273,16 @@ class Memory<3, T> {
 
   void write_to_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                        cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
+    cl_int error = _environment->_cl_queue.enqueueWriteBuffer(_device_buffer, blocking, 0, mem_size(), _data, event_waitlist,
                                                event_returned);
+    check_opencl_error(error);
   }
 
   void read_from_device(bool blocking = true, const std::vector<cl::Event>* event_waitlist = nullptr,
                         cl::Event* event_returned = nullptr) {
-    _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
+    cl_int error = _environment->_cl_queue.enqueueReadBuffer(_device_buffer, blocking, 0, mem_size(), static_cast<void*>(_data),
                                               event_waitlist, event_returned);
+    check_opencl_error(error);
   }
 
  private:

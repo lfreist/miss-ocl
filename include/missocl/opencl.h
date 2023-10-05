@@ -17,10 +17,12 @@
 #include <missocl/memory.h>
 #include <missocl/utils.h>
 
+#ifndef CL_HPP_TARGET_OPENCL_VERSION
+#define CL_HPP_TARGET_OPENCL_VERSION 200
+#endif
 #define CL_HPP_ENABLE_EXCEPTIONS
 #include <CL/opencl.hpp>
 
 #define WORKGROUP_SIZE 64
-#define CL_HPP_TARGET_OPENCL_VERSION 300
 
 #define KERNEL_CODE(name, ...) std::string name(#__VA_ARGS__)

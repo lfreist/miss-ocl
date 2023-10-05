@@ -33,7 +33,7 @@ Kernel::Kernel(mcl::Environment& environment, cl::NDRange range, std::string nam
   check_opencl_error(error);
 }
 
-void Kernel::set_range(uint64_t x, uint64_t y, uint64_t z) {
+void Kernel::set_range(cl::size_type x, cl::size_type y, cl::size_type z) {
   _cl_global_range = cl::NDRange(x, y, z);
   _cl_local_range = cl::NDRange(WORKGROUP_SIZE);
 }
