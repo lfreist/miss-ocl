@@ -14,11 +14,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-include_directories(include)
-include_directories(external/OpenCL/external/OpenCL-CLHPP/include)
-
-set(OPENCL_SDK_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
-add_subdirectory(external/OpenCL)
+find_package(OpenCLHeaders CONFIG)
+if (OpenCLHeaders_FOUND)
+    find_package(OpenCLHeadersCpp REQUIRED)
+    find_package(OpenCLICDLoader REQUIRED)
+else()
+    set(OPENCL_SDK_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+    add_subdirectory(external/OpenCL)
+endif()
 
 add_subdirectory(src)
 
